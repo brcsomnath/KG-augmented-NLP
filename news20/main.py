@@ -5,8 +5,7 @@ import numpy as np
 import pprint
 
 from lstm_module import LSTM_Module
-from KG_CNN import KG_CNN
-from KG_LSH import KG_LSH
+from kg_cnn import KG_CNN
 
 import prepare_dataset
 
