@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow as tf
 import clean_dataset
 from random import shuffle
+from config import *
 import time
 
 def save_vocab(data):
@@ -12,7 +13,7 @@ def save_vocab(data):
 	Saves the dataset vocabulary in a separate txt file
 	"""
 
-	f = open('vocabulary.txt',"w")
+	f = open(VOCABULARY_FILENAME,"w")
 	for i in range(len(data)):
 		f.write(data[i]+'\n')
 	f.close()
@@ -42,7 +43,7 @@ def get_vocab():
 	"""
 
 	vocab = []
-	f = open('vocabulary.txt','r')
+	f = open(VOCABULARY_FILENAME,'r')
 	for line in f:
 		vocab.append(line.rstrip())
 	f.close()
@@ -58,10 +59,10 @@ def get_word_vectors():
 	vocab = get_vocab()
 	word2vec = {}
 	emp = [0.1]*300
-	f_vec = open('word_vectors.txt',"w")
+	f_vec = open(WORD_VECTOR_FILENAME,"w")
 	start = time.time()
 	print('Reading word vectors....')
-	f = open('Dataset/glove.840B.300d.txt')
+	f = open(DATASET_PATH + GLOVE_EMBEDDING_FILE_NAME)
 
 	for line in f:
 		words = line.split()
@@ -147,7 +148,7 @@ def get_embedding():
 	"""
 	Collects the embedding vectors from the saved utility word vectors txt file
 	"""
-	f_vec = open('word_vectors.txt')
+	f_vec = open(WORD_VECTOR_FILENAME)
 	lookup = {}
 	embedding = []
 	embedding.append([0]*300)
@@ -187,6 +188,10 @@ def get_shuffled_dataset():
 		label.append(np.asarray(lb))
 	return data, label, embedding
 
+def setup():
+	build_vocab(DATASET_PATH)
+	get_word_vectors()
 
 if __name__=='__main__':
+	# setup()
 	_, _, embed = get_shuffled_dataset()

@@ -83,8 +83,18 @@ def retrieve_data_files():
 	return data, label
 
 
+def setup():
+	"""
+	Utility function to setup cleaned dataset
+	"""
+
+	count = 0
+	for i in range(20):
+		ct = scrape_class('Dataset/cleaned_data/'+target_names[i], i)
+		count += ct
+	print 'Total items in the dataset %d.'%(count)
+
 '''
 if __name__ == '__main__':
-	data,_ = retrieve_data_files()
-	print len(data)
+	setup()
 '''

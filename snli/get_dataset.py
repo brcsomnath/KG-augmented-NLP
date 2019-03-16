@@ -3,6 +3,7 @@ import sys
 import time
 import numpy as np
 from random import shuffle
+from config import *
 
 def save_vocab(data):
 	"""
@@ -196,5 +197,10 @@ def get_data2vec(filepath):
 
 	return train_src, train_targ, train_label, test_src, test_targ, test_label, val_src, val_targ, val_label, embedding
 
+def setup():
+	build_vocab(DATASET_PATH)
+	get_word_vectors()
+
 if __name__=='__main__':
+	# setup()
 	get_data2vec('snli/')
